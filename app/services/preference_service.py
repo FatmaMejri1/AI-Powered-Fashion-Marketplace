@@ -114,7 +114,7 @@ class PreferenceService:
         score = (w_fit * fit_score
                  + w_pref * preference_score
                  + w_sim * similarity_score
-                 - w_risk * 0.0 # return_risk placeholder
+                 - w_risk * 0.0
                  - mismatch)
 
         return {
