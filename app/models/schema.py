@@ -1,4 +1,5 @@
 from pydantic import BaseModel
+from typing import List, Optional
 
 class FitRequest(BaseModel):
     product_type: str
@@ -18,3 +19,20 @@ class FitRequest(BaseModel):
 
     size_hip_min: float
     size_hip_max: float
+
+class ProductTarget(BaseModel):
+    id: str
+    category: str
+    product_type: str
+    brand: str
+    fit_score: float
+    similarity_score: float
+
+class RecommendRequest(BaseModel):
+    user_id: int
+    gender: str
+    total_orders: int
+    last_category: Optional[str] = "casual"
+    last_product_type: Optional[str] = "t-shirt"
+    days_since_last_order: Optional[int] = 30
+    products: List[ProductTarget]
