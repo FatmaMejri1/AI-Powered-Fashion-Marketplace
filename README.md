@@ -32,49 +32,10 @@ POST /recommend
 
 ---
 
-## 🔬 AI/ML Services
 
-### 1. NLP Engine — Text Comprehension & Parsing
-**`app/nlp/description_parser.py`** · **`app/nlp/review_analyzer.py`**
 
-- **TF-IDF Vectorization** — Turns product descriptions into mathematical vectors, measuring word importance across the catalog.
-- **Cosine Similarity** — Computes the semantic alignment between a user's search query and each product description.
-- **Regex Taxonomy Rules** — Extracts structured features from raw text (e.g. "elastane" → `has_stretch: true`).
-- **Review Sentiment Analysis** — Analyzes user reviews to detect fit complaints and applies personalized NLP penalties.
 
-### 2. Preference Engine — User Affinity Prediction
-**`app/services/preference_service.py`**
-
-- **Random Forest Classifier** — Predicts buy probability from behavioral features: `days_since_last_purchase`, `price_sensitivity`, `favorite_brand`, etc.
-- **Cold Start Handling** — Falls back to a popularity-based score cache when new users have no purchase history.
-
-### 3. Fit Engine — Morphological Matching
-**`app/services/fit_service.py`**
-
-- **Non-Linear Gaussian Scoring** — Bell-curve scoring that forgives minor measurement differences but penalizes large ones exponentially.
-- **Asymmetric Penalty Logic** — "Too tight" penalizes harder than "too loose" (tight clothes are unwearable; loose clothes can be styled).
-
-### 4. Return Risk Engine — Loss Prevention
-**`app/services/return_service.py`**
-
-- **Probabilistic ML Classifier** — Evaluates return risk from features like `size_mismatch`, `historical_return_rate`, and NLP penalty.
-- **Exponential Penalty Function** — `penalty = (prob²) × 0.5`. Low risk (<30%) = no penalty. High risk = aggressive ranking demotion.
-
-### 5. Similarity Engine — Body Twin Matching
-**`app/services/similarity.py`**
-
-- **StandardScaler Normalization** — Ensures height (180cm) doesn't overshadow smaller-variance measurements like shoulder width (40cm).
-- **K-Nearest Neighbors (KNN)** — Finds users with the closest physical measurements. If your body twins loved an item, you likely will too.
-
-### 6. Ranking Service — Master Orchestrator
-**`app/services/ranking_service.py`**
-
-- **Weighted Aggregation** — `(Fit × 0.35) + (Preference × 0.25) + (Similarity × 0.20) + (NLP × 0.20) − Return_Penalty`
-- **Threshold Explanations** — Generates human-readable labels (e.g. `"matches your style · highly relevant"`) for the front-end.
-
----
-
-## 📡 API Endpoints
+## 📡 API Endpoints (AI/ML)
 
 | Method | Endpoint | Description |
 |--------|----------|-------------|
@@ -190,3 +151,9 @@ This service is designed to be called by the **Node.js backend** of the 3D Fashi
 ```
 Frontend (Angular) → Backend (Node.js) → AI Service (FastAPI) → Ranked Response
 ```
+
+---
+
+## ?? License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
