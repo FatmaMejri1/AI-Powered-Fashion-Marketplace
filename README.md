@@ -1,4 +1,4 @@
-# 🧠 AI Recommendation Service
+#  AI Recommendation Service
 
 > Intelligent product recommendation engine for the **3D Fashion Marketplace** — built with FastAPI, Scikit-Learn, and NLP.
 
@@ -154,6 +154,6 @@ Frontend (Angular) → Backend (Node.js) → AI Service (FastAPI) → Ranked Res
 
 ---
 
-## ?? License
+##  License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
