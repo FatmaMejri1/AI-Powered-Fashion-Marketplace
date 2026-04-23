@@ -92,37 +92,3 @@ class PreferenceService:
             if score is not None:
                 return score
         return self.popularity_cache.get((category, product_type), 0.50)
-
-    def preference_mismatch_penalty(self, user_ctx, product):
-        penalty = 0.0
-        if product.get("category", "") != user_ctx.get("fav_category", ""):
-            penalty += 0.05
-        if product.get("product_type", "") != user_ctx.get("fav_product_type", ""):
-            penalty += 0.03
-        return round(penalty, 4)
-
-    def compute_final_score(self, fit_score, preference_score, similarity_score, product_type, user_ctx=None, product=None):
-        w_fit = FIT_WEIGHTS.get(product_type, 0.50)
-        rem = 1.0 - w_fit
-        w_pref = round(rem * 0.45, 4)
-        w_sim = round(rem * 0.25, 4)
-        w_nlp = round(rem * 0.30, 4)
-        w_risk = 0.15
-
-        mismatch = self.preference_mismatch_penalty(user_ctx, product) if user_ctx and product else 0.0
-
-        score = (w_fit * fit_score
-                 + w_pref * preference_score
-                 + w_sim * similarity_score
-                 - w_risk * 0.0
-                 - mismatch)
-
-        return {
-            "final_score": round(score, 4),
-            "weights": {
-                "fit": w_fit,
-                "preference": w_pref,
-                "similarity": w_sim,
-                "risk_penalty": w_risk,
-            },
-        }

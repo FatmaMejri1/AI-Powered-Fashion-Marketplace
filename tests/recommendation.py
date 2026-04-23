@@ -11,6 +11,7 @@ def test_recommendation():
         "last_category": "sportswear",
         "last_product_type": "sneakers",
         "days_since_last_order": 3,
+        "search_query": "stretchy flexible clothing that is formal",
         "products": [
             {
                 "id": "p1",
@@ -18,7 +19,8 @@ def test_recommendation():
                 "product_type": "hoodie",
                 "brand": "Nike",
                 "fit_score": 0.92,
-                "similarity_score": 0.80
+                "similarity_score": 0.80,
+                "description": "Oversized fit cotton hoodie with ribbed cuffs and kangaroo pocket. Relaxed silhouette perfect for streetwear layering. 100% heavyweight cotton."
             },
             {
                 "id": "p2",
@@ -26,7 +28,8 @@ def test_recommendation():
                 "product_type": "jacket",
                 "brand": "Zara",
                 "fit_score": 0.85,
-                "similarity_score": 0.50
+                "similarity_score": 0.50,
+                "description": "Slim fit blazer in stretch fabric. Tailored silhouette perfectly flexible for formal events."
             }
         ]
     }
@@ -37,7 +40,7 @@ def test_recommendation():
             results = response.json()
             print("Recommendation Results:")
             for rec in results['recommendations']:
-                print(f"   - Product: {rec['product_id']} | Final Score: {rec['final_score']} | Preference: {rec['preference_score']}")
+                print(f"   - {rec['product_id']} | Final: {rec['final_score']} | NLP: {rec.get('nlp_score', 0):.3f} | Pref: {rec['preference_score']}")
         else:
             print(f"Recommendation failed (Status: {response.status_code})")
             print(f"Response: {response.text}")

@@ -1,0 +1,18 @@
+venv/
+__pycache__/
+app/data/
+.pytest_cache/
+*.pyc
+*.pkl
+
+
+
+
+
+
+
+ TEST_FIT_SERVICE.md 
+ TEST_SIMILARITY.md
+README_ai.md
+TEST_README.md
+requirement.txt

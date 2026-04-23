@@ -27,6 +27,7 @@ class ProductTarget(BaseModel):
     brand: str
     fit_score: float
     similarity_score: float
+    description: Optional[str] = None
 
 class RecommendRequest(BaseModel):
     user_id: int
@@ -35,4 +36,6 @@ class RecommendRequest(BaseModel):
     last_category: Optional[str] = "casual"
     last_product_type: Optional[str] = "t-shirt"
     days_since_last_order: Optional[int] = 30
+    search_query: Optional[str] = None
+    user_measurements: Optional[dict] = None
     products: List[ProductTarget]

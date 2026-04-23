@@ -18,6 +18,7 @@ print("--- STARTING FIT SERVICE VALIDATION ---")
 
 test_fit_score({
     "product_type": "top",
+    "gender": "M",
     "height": 180, "weight": 75,
     "chest": 98, "waist": 85, "hip": 95, "shoulder": 45,
     "size_chest_min": 95, "size_chest_max": 105,
@@ -27,6 +28,7 @@ test_fit_score({
 
 test_fit_score({
     "product_type": "top",
+    "gender": "M",
     "height": 180, "weight": 75,
     "chest": 108, "waist": 85, "hip": 95, "shoulder": 45,
     "size_chest_min": 95, "size_chest_max": 105,
@@ -36,6 +38,7 @@ test_fit_score({
 
 test_fit_score({
     "product_type": "bottom",
+    "gender": "M",
     "height": 180, "weight": 75,
     "chest": 120, "waist": 82, "hip": 92, "shoulder": 45,
     "size_chest_min": 90, "size_chest_max": 100,
@@ -45,6 +48,7 @@ test_fit_score({
 
 test_fit_score({
     "product_type": "bottom",
+    "gender": "M",
     "height": 180, "weight": 75,
     "chest": 95, "waist": 90, "hip": 92, "shoulder": 45,
     "size_chest_min": 90, "size_chest_max": 100,

@@ -17,7 +17,6 @@ def score_measurement(value, min_val, max_val, tolerance=FIT_TOLERANCE):
         sigma = tolerance
 
     score = math.exp(-(diff**2) / (2 * (sigma**2)))
-    
     return max(0.0, round(score, 3))
 
 def get_weights(product_type):
@@ -36,7 +35,6 @@ def calculate_fit_score(data):
     hip_score = score_measurement(data.hip, data.size_hip_min, data.size_hip_max)
 
     weights = get_weights(data.product_type)
-
     total_weight = sum(weights.values())
     
     fit_score = (

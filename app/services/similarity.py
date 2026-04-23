@@ -2,36 +2,27 @@ import numpy as np
 import logging
 from sklearn.neighbors import NearestNeighbors
 from sklearn.preprocessing import StandardScaler
+from app.config import SIMILARITY_FEATURE_WEIGHTS
 
 logger = logging.getLogger(__name__)
 
 class SimilarityService:
-    FEATURE_WEIGHTS = {
-        'height': 1.2,
-        'weight': 1.0,
-        'chest': 1.2,
-        'waist': 1.0,
-        'hip': 1.0,
-        'shoulder': 0.8
-    }
-    FEATURES = list(FEATURE_WEIGHTS.keys())
-
     def __init__(self, users_data):
         self.raw_data = users_data
         self.scaler = StandardScaler()
         self.knn = NearestNeighbors(metric='euclidean', algorithm='auto')
-        self.is_fitted = False
+        self.feature_weights = SIMILARITY_FEATURE_WEIGHTS
+        self.features = list(self.feature_weights.keys())
 
     def _extract_features(self, user):
         vec = []
-        for feature in self.FEATURES:
+        for feature in self.features:
             val = float(getattr(user, feature, 0) if hasattr(user, feature) else user.get(feature, 0))
-            vec.append(val * self.FEATURE_WEIGHTS[feature])
+            vec.append(val * self.feature_weights[feature])
         return vec
 
     def find_similar_users(self, target_user, k=5):
         target_gender = getattr(target_user, 'gender', 'unisex').lower()
-        
         filtered_data = [
             u for u in self.raw_data 
             if str(u.get('gender', 'unisex')).lower() == target_gender
@@ -60,7 +51,6 @@ class SimilarityService:
                     "distance": round(float(distances[0][i]), 3),
                     "similarity_score": round(max(0, 1 - distances[0][i]/10), 3)
                 })
-            
             return results
         except Exception as e:
             logger.error(f"Similarity search error: {e}")
