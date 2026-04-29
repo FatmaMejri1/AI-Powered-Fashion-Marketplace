@@ -1,8 +1,12 @@
-import requests
-import json
-import time
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-BASE_URL = "http://127.0.0.1:8000"
+import time
+from fastapi.testclient import TestClient
+from app.main import app
+
+client = TestClient(app)
 
 def test_nlp_penalty():
     # We choose p004 because our mock REVIEWS in review_analyzer.py 
@@ -51,7 +55,7 @@ def test_nlp_penalty():
     try:
         print("Sending recommendation request...")
         start_time = time.time()
-        response = requests.post(f"{BASE_URL}/recommend", json=payload)
+        response = client.post("/recommend", json=payload)
         end_time = time.time()
         
         if response.status_code == 200:
@@ -80,9 +84,8 @@ def test_nlp_penalty():
             print(f"Recommendation failed (Status: {response.status_code})")
             print(f"Response: {response.text}")
             
-    except requests.exceptions.ConnectionError:
-        print("ERROR: Connection Refused. Make sure you have started the server:")
-        print("       python -m uvicorn app.main:app --reload")
+    except Exception as e:
+        print(f"ERROR: {e}")
 
 if __name__ == "__main__":
     print("--- STARTING NLP PENALTY VALIDATION ---")

@@ -1,7 +1,11 @@
-import requests
-import json
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-BASE_URL = "http://127.0.0.1:8000"
+from fastapi.testclient import TestClient
+from app.main import app
+
+client = TestClient(app)
 
 def test_recommendation():
     payload = {
@@ -35,7 +39,7 @@ def test_recommendation():
     }
     
     try:
-        response = requests.post(f"{BASE_URL}/recommend", json=payload)
+        response = client.post("/recommend", json=payload)
         if response.status_code == 200:
             results = response.json()
             print("Recommendation Results:")
